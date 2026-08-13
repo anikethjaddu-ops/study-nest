@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookmarksRouteImport } from './routes/bookmarks'
 import { Route as LibraryRouteImport } from './routes/library'
+import { Route as StatsRouteImport } from './routes/stats'
+import { Route as NotesIdRouteImport } from './routes/notes.$id'
+import { Route as ReaderIdRouteImport } from './routes/reader.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +31,70 @@ const LibraryRoute = LibraryRouteImport.update({
   path: '/library',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesIdRoute = NotesIdRouteImport.update({
+  id: '/notes/$id',
+  path: '/notes/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReaderIdRoute = ReaderIdRouteImport.update({
+  id: '/reader/$id',
+  path: '/reader/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/library': typeof LibraryRoute
+  '/stats': typeof StatsRoute
+  '/notes/$id': typeof NotesIdRoute
+  '/reader/$id': typeof ReaderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/library': typeof LibraryRoute
+  '/stats': typeof StatsRoute
+  '/notes/$id': typeof NotesIdRoute
+  '/reader/$id': typeof ReaderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bookmarks': typeof BookmarksRoute
   '/library': typeof LibraryRoute
+  '/stats': typeof StatsRoute
+  '/notes/$id': typeof NotesIdRoute
+  '/reader/$id': typeof ReaderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bookmarks' | '/library'
+  fullPaths:
+    '/' | '/bookmarks' | '/library' | '/stats' | '/notes/$id' | '/reader/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bookmarks' | '/library'
-  id: '__root__' | '/' | '/bookmarks' | '/library'
+  to: '/' | '/bookmarks' | '/library' | '/stats' | '/notes/$id' | '/reader/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/bookmarks'
+    | '/library'
+    | '/stats'
+    | '/notes/$id'
+    | '/reader/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookmarksRoute: typeof BookmarksRoute
   LibraryRoute: typeof LibraryRoute
+  StatsRoute: typeof StatsRoute
+  NotesIdRoute: typeof NotesIdRoute
+  ReaderIdRoute: typeof ReaderIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +120,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LibraryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes/$id': {
+      id: '/notes/$id'
+      path: '/notes/$id'
+      fullPath: '/notes/$id'
+      preLoaderRoute: typeof NotesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reader/$id': {
+      id: '/reader/$id'
+      path: '/reader/$id'
+      fullPath: '/reader/$id'
+      preLoaderRoute: typeof ReaderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +148,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookmarksRoute: BookmarksRoute,
   LibraryRoute: LibraryRoute,
+  StatsRoute: StatsRoute,
+  NotesIdRoute: NotesIdRoute,
+  ReaderIdRoute: ReaderIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
