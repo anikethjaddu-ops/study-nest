@@ -82,7 +82,7 @@ function HomePage() {
   const recent = [...docs].sort(
     (a, b) => +new Date(b.lastOpenedAt) - +new Date(a.lastOpenedAt),
   );
-  const todayMinutes = ACTIVITY[0];
+  const todayMinutes = ACTIVITY[0] ?? 0;
 
   return (
     <AppShell>

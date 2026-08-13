@@ -58,7 +58,10 @@ function DocMenu({ doc }: { doc: Doc }) {
             <StickyNote className="size-4" /> View notes
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem variant="destructive" onSelect={() => removeDoc(doc.id)}>
+        <DropdownMenuItem
+          className="text-destructive focus:text-destructive"
+          onSelect={() => removeDoc(doc.id)}
+        >
           <Trash2 className="size-4" /> Delete
         </DropdownMenuItem>
       </DropdownMenuContent>
